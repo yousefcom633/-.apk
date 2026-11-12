@@ -58,6 +58,13 @@ jobs:
       - name: Add Android
         run: npx cap add android
 
+      - name: Create placeholder adhan files (user picks sound in app)
+        run: |
+          mkdir -p public/sounds
+          for f in afasy makkah madinah aqsa tobar fajr; do
+            [ -f "public/sounds/$f.mp3" ] || : > "public/sounds/$f.mp3"
+          done
+
       - name: Patch Android (permissions, sounds, notification icon, signing)
         run: node scripts/prepare-android.mjs patch
 
